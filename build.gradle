@@ -1,0 +1,96 @@
+
+plugins {
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "com.github.johnrengelman.shadow" version "5.0.0"
+    id "application"
+}
+
+apply plugin: 'idea'
+apply plugin: "checkstyle"
+
+version "0.1"
+group "com.monowai.mondrian"
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly 
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    annotationProcessor "io.micronaut.configuration:micronaut-picocli"
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "info.picocli:picocli"
+    implementation "io.micronaut.configuration:micronaut-picocli"
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    implementation "info.picocli:picocli-shell-jline3:4.1.4"
+
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testImplementation "io.micronaut:micronaut-inject-java"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+    testImplementation "org.assertj:assertj-core:$assertJ"
+}
+
+test.classpath += configurations.developmentOnly
+mainClassName = "com.monowai.mondrian.Mondrian"
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+run.classpath += configurations.developmentOnly
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+
+checkstyle {
+    toolVersion = '8.23'
+    configProperties = [
+        'javaCommon.cache.file': "${buildDir}/javaCommon.cache",
+    ]
+    ignoreFailures = true
+    showViolations = true
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        downloadSources = true
+        outputDir = file("$buildDir/classes/main/")
+        testOutputDir = file("$buildDir/classes/main/")
+    }
+}

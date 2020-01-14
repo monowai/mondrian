@@ -1,0 +1,49 @@
+Thumbs.db
+.DS_Store
+.gradle
+build/
+target/
+out/
+.idea
+.settings
+
+*.log
+*.keystore
+.history/
+
+# JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+.mvn/
+.project
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Eclipse
+.settings/
+.classpath
+
+# git-secret rules
+.secrets/*.*
+!.secrets/*.secret
+!.secrets/public-keys/
+.gitsecret/keys/random_seed
+.gitsecret/keys/pubring.kbx~
+
+# Archives / Binaries
+*.jar
+*.zip
+*.tar.gz
+*.tgz
+*.so
+*.xcarchive
+
+# Java
+*.hprof
+.gradle/
+!gradle-wrapper.jar
+!gradle-wrapper.properties

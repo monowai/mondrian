@@ -1,0 +1,5 @@
+profile: cli
+defaultPackage: com.monowai.mondrian
+---
+testFramework: junit
+sourceLanguage: java

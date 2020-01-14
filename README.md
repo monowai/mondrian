@@ -1,15 +1,20 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5af243e601db4d98b8ed4615b9724f42)](https://www.codacy.com/manual/monowai/mondrian?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=monowai/mondrian&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3204f6548dc24ea6bc707d8343f1d7d2)](https://www.codacy.com/manual/monowai/mondrian?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=monowai/mondrian&amp;utm_campaign=Badge_Grade)
 
 ## Mondrian
-A noddy little command lineData drawing tool
+A little command line drawing tool.  If you have Docker, there is an image you can run directly.
+
+```$bash
+docker run -it monowai/mondrian
+``` 
 
 ### ADR
 *   Java 11 - it's 2020 already... 
 *   Micronaut is used as a lightweight command runner
-*   PicoCli+Jline - Handle commandline input, parameter sanitization and access to command objects
-*   Lombok - because I know it and am not using this to pickup Kotlin
+*   PicoCli+Jline - Handle CLI, parameter sanitization and things like help
+*   Lombok - because I know it and am not using this exercise to pickup Kotlin
 *   Checkstyle - Google style
-*   Simple Docker to handle packaging 
+*   Docker for packaging 
+*   Drawing routines refactored from https://github.com/thangbn/console-drawing
 
 ### Deviation
 CTRL+D is used to quit instead of Q - convention over configuration
@@ -22,9 +27,11 @@ java -jar build/libs/mondrian-0.1-all.jar
 ```
 
 ### Docker
+You must first clone and build the JAR.
 ```$bash
-docker build . -t mondrian:latest --build-arg JAR_FILE=build/libs/mondrian-0.1-all.jar
-docker run -it mondrian
+# Build and run locally
+docker build . -t monowai/mondrian --build-arg JAR_FILE=build/libs/mondrian-0.1-all.jar
+docker run -it monowai/mondrian
 ```
 
 ### Spec
@@ -45,13 +52,13 @@ Should create a new canvas of width w and height h.
 
 `L x1 y1 x2 y2`
    
-Should create a new lineData from (x1,y1) to (x2,y2). Currently only
+Should create a new line from (x1,y1) to (x2,y2). Currently only
                 horizontal or vertical lines are supported. Horizontal and vertical lines
                 will be drawn using the 'x' character.
                 
 `R x1 y1 x2 y2`
    
-Should create a new rectangleData, whose upper left corner is (x1,y1) and
+Should create a new rectangle, whose upper left corner is (x1,y1) and
                 lower right corner is (x2,y2). Horizontal and vertical lines will be drawn
                 using the 'x' character.
                 

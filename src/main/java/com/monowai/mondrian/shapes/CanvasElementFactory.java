@@ -6,16 +6,26 @@ import com.monowai.mondrian.model.LineData;
 import com.monowai.mondrian.model.RectangleData;
 import com.monowai.mondrian.model.ShapeData;
 
-public class ShapeFactory {
+/**
+ * Factory is bound to a canvas and is responsible for returning elements
+ * that can be rendered to the canvas.
+ *
+ */
+public class CanvasElementFactory {
+  private ConsoleCanvas canvas;
+
+  public CanvasElementFactory(ConsoleCanvas canvas) {
+    this.canvas = canvas;
+  }
+
   /**
-   * Factory to return an Element that will implement the render functionality
+   * Return an Element that will implement the render functionality
    * to the canvas.
    *
-   * @param canvas a valid canvas
    * @param shape  Properties to use for the element
    * @return flyweight to do the render
    */
-  public Shape get(ConsoleCanvas canvas, ShapeData shape) {
+  public Shape get(ShapeData shape) {
     if (shape == null) {
       throw new IllegalArgumentException("No shape to draw");
     }

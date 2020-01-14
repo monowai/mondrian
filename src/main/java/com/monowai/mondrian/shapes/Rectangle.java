@@ -6,12 +6,11 @@ import com.monowai.mondrian.model.RectangleData;
 
 public class Rectangle implements Shape {
   private RectangleData rectangleData;
-  private ConsoleCanvas canvas;
-  private ShapeFactory shapeFactory = new ShapeFactory();
+  private CanvasElementFactory canvasElementFactory;
 
   public Rectangle(ConsoleCanvas canvas, RectangleData rectangleData) {
     this.rectangleData = rectangleData;
-    this.canvas = canvas;
+    canvasElementFactory = new CanvasElementFactory(canvas);
   }
 
   @Override
@@ -21,7 +20,7 @@ public class Rectangle implements Shape {
     int x2 = rectangleData.getEndX();
     int y2 = rectangleData.getEndY();
     //top edge
-    shapeFactory.get(canvas, LineData.builder()
+    canvasElementFactory.get(LineData.builder()
         .posX(x1)
         .posY(y1)
         .endX(x2)
@@ -29,7 +28,7 @@ public class Rectangle implements Shape {
         .build()).draw();
 
     //right edge
-    shapeFactory.get(canvas, LineData.builder()
+    canvasElementFactory.get(LineData.builder()
         .posX(x1)
         .posY(y1)
         .endX(x1)
@@ -37,7 +36,7 @@ public class Rectangle implements Shape {
         .build()).draw();
 
     //bottom edge
-    shapeFactory.get(canvas, LineData.builder()
+    canvasElementFactory.get(LineData.builder()
         .posX(x2)
         .posY(y1)
         .endX(x2)
@@ -45,7 +44,7 @@ public class Rectangle implements Shape {
         .build()).draw();
 
     //right edge
-    shapeFactory.get(canvas, LineData.builder()
+    canvasElementFactory.get(LineData.builder()
         .posX(x1)
         .posY(y2)
         .endX(x2)

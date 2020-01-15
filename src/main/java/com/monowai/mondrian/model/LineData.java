@@ -11,16 +11,4 @@ public class LineData implements ShapeData {
   private int endX;
   private int endY;
 
-  /**
-   * Throws an exception if dimensions are invalid.
-   *
-   * @return true if valid
-   */
-  public boolean isValid(Border border) {
-    if (posX < 1 || posX >= border.getWidth() || posY < 1 || posY > border.getHeight()) {
-      throw new IllegalArgumentException("X,Y coordinates are outside of canvas");
-    }
-    return true;
-  }
-
 }

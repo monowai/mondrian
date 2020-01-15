@@ -1,32 +1,43 @@
 package com.monowai.mondrian.shapes;
 
 import com.monowai.mondrian.canvas.ConsoleCanvas;
+import com.monowai.mondrian.model.Border;
 import com.monowai.mondrian.model.FillData;
 import com.monowai.mondrian.model.Point;
 import java.util.Stack;
 
 public class Fill implements Shape {
   private ConsoleCanvas canvas;
-  private FillData element;
+  private FillData fillData;
+
+  /**
+   * Instance of a Bucket Fill supporting text output.
+   * Throws an exception if the data does not fit on the default canvas.
+   *
+   * @param fillData properties to use in rendering
+   */
+  public Fill(FillData fillData) {
+    this(new ConsoleCanvas(), fillData);
+  }
 
   /**
    * Instance of a Bucket Fill supporting text output.
    * Throws an exception if the data does not fit on the canvas.
    *
-   * @param canvas text Console
+   * @param canvas   text Console
    * @param fillData properties to use in rendering
    */
   public Fill(ConsoleCanvas canvas, FillData fillData) {
-    fillData.isValid(canvas.getBorder());
     this.canvas = canvas;
-    this.element = fillData;
+    this.fillData = fillData;
+    isValid();
   }
 
   @Override
   public void draw() {
-    element.isValid(canvas.getBorder());
-    int y = element.getPosY();
-    int x = element.getPosX();
+    isValid();
+    int y = fillData.getPosY();
+    int x = fillData.getPosX();
     char[][] canvasArray = canvas.getCanvasArray();
     char originalChar = canvasArray[y - 1][x - 1];
     Stack<Point> stack = new Stack<>();
@@ -35,7 +46,7 @@ public class Fill implements Shape {
     while (!stack.isEmpty()) {
       Point pop = stack.pop();
       if (canvasArray[pop.getPosY()][pop.getPosX()] == originalChar) {
-        canvasArray[pop.getPosY()][pop.getPosX()] = element.getFill();
+        canvasArray[pop.getPosY()][pop.getPosX()] = fillData.getFill();
       }
       if (pop.getPosY() - 1 >= 0 && canvasArray[pop.getPosY() - 1][pop.getPosX()] == originalChar) {
         stack.add(new Point(pop.getPosY() - 1, pop.getPosX()));
@@ -54,4 +65,19 @@ public class Fill implements Shape {
       }
     }
   }
+
+  /**
+   * Determine if the bucket fill parameters are valid withing borders.
+   */
+  public void isValid() {
+    Border border = canvas.getBorder();
+    int posX = fillData.getPosX();
+    int posY = fillData.getPosY();
+    if (posX < 1 || posX >= border.getWidth() || posY < 1 || posY >= border.getHeight()) {
+      throw new IllegalArgumentException(
+          String.format("X,Y coordinates are outside of canvas %s", border.toString()));
+    }
+  }
+
+
 }

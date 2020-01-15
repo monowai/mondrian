@@ -12,29 +12,21 @@ import org.junit.jupiter.api.Test;
 public class FillTest {
   @Test
   void is_InvalidBucketFillThrowing() {
-    Border validBorder = Border.builder().build();
-    FillData illegalX = FillData.builder()
+    assertThrows(IllegalArgumentException.class, () -> new Fill(FillData.builder()
         .posX(-1)
         .posY(2)
-        .build();
-    assertThrows(IllegalArgumentException.class, () -> illegalX.isValid(validBorder));
-    FillData illegalY = FillData.builder()
+        .build()));
+    assertThrows(IllegalArgumentException.class, () -> new Fill(FillData.builder()
         .posX(1)
         .posY(-2)
-        .build();
-    assertThrows(IllegalArgumentException.class, () -> illegalY.isValid(validBorder));
-
-    assertThrows(IllegalArgumentException.class, () -> new ConsoleCanvas(validBorder)
-        .draw(illegalY));
+        .build()));
   }
 
   @Test
   void is_RectangleBucketFilled() {
-    Border border = Border.builder().build();
-    ConsoleCanvas canvas = new ConsoleCanvas(border);
+    ConsoleCanvas canvas = new ConsoleCanvas();
     canvas.draw(RectangleData.builder().posX(8).posY(1).endX(14).endY(4).build());
     FillData fillData = FillData.builder().posX(9).posY(2).fill('.').build();
-    assertThat(fillData.isValid(border)).isTrue();
     canvas.draw(fillData);
 
     assertThat(canvas.getElements())

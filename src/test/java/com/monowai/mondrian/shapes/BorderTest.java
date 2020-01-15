@@ -11,25 +11,24 @@ public class BorderTest {
 
   @Test
   void is_CanvasDefaultsValid() {
-    assertThat(Border.builder().build().isValid()).isTrue();
+    assertThat(new ConsoleCanvas()).isNotNull();
   }
 
   @Test
   void are_HeightConstraintsGuarded() {
-    Border illegalHeight = Border.builder().height(-10).build();
-    assertThrows(IllegalArgumentException.class, illegalHeight::isValid);
-    Border zeroHeight = Border.builder().height(0).build();
-    assertThrows(IllegalArgumentException.class, zeroHeight::isValid);
-    // Constraints should be verified when creating a canvas
-    assertThrows(IllegalArgumentException.class, () -> new ConsoleCanvas(illegalHeight));
+    assertThrows(IllegalArgumentException.class, ()
+        -> new ConsoleCanvas(Border.builder().height(-10).build()));
+    assertThrows(IllegalArgumentException.class, ()
+        -> new ConsoleCanvas(Border.builder().height(0).build()));
+
   }
 
   @Test
   void are_WidthConstraintsGuarded() {
-    Border illegalWidth = Border.builder().width(-10).build();
-    assertThrows(IllegalArgumentException.class, illegalWidth::isValid);
-    Border zeroWidth = Border.builder().width(0).build();
-    assertThrows(IllegalArgumentException.class, zeroWidth::isValid);
+    assertThrows(IllegalArgumentException.class, ()
+        -> new ConsoleCanvas(Border.builder().width(-10).build()));
+    assertThrows(IllegalArgumentException.class, ()
+        -> new ConsoleCanvas(Border.builder().width(0).build()));
   }
 
 

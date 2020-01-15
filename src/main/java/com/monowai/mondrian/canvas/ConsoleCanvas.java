@@ -26,9 +26,9 @@ public class ConsoleCanvas implements Canvas {
     createCanvas(Border.builder().build());
   }
 
-  public ConsoleCanvas(Border validBorder) {
+  public ConsoleCanvas(Border canvasBorder) {
     this();
-    createCanvas(validBorder);
+    createCanvas(canvasBorder);
   }
 
   public void setReader(LineReader lineReader) {
@@ -42,7 +42,10 @@ public class ConsoleCanvas implements Canvas {
    * @param border dimensions
    */
   public void createCanvas(Border border) {
-    border.isValid();
+    if (border.getHeight() <= 0 || border.getWidth() <= 0) {
+      throw new IllegalArgumentException("Invalid dimensions");
+    }
+
     this.border = border;
     canvasArray = new char[border.getHeight()][border.getWidth()];
     Arrays.stream(canvasArray).forEach(chars -> Arrays.fill(chars, ' '));

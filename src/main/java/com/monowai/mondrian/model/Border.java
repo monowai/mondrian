@@ -21,15 +21,4 @@ public class Border {
   @Builder.Default
   private char[] verticalEdge = new char[] {'|'};
 
-  /**
-   * Throws an exception if dimensions are invalid.
-   *
-   * @return true if valid
-   */
-  public boolean isValid() {
-    if (height <= 0 || width <= 0) {
-      throw new IllegalArgumentException("Invalid dimensions");
-    }
-    return true;
-  }
 }

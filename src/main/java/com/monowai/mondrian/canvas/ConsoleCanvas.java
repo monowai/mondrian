@@ -14,7 +14,7 @@ import org.jline.reader.impl.LineReaderImpl;
 @Singleton
 public class ConsoleCanvas implements Canvas {
 
-  CanvasElementFactory canvasElementFactory;
+  private CanvasElementFactory canvasElementFactory;
   private PrintWriter out;
   private LineReaderImpl lineReader;
   private Border border;

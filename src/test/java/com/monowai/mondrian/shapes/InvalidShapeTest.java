@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class InvalidShapeTest {
   @Test
-  void is_InvalidShapeHandled() {
+  void isInvalidShapeHandled() {
     assertThrows(IllegalArgumentException.class, () ->
         new ConsoleCanvas().draw(new InvalidShape()));
   }

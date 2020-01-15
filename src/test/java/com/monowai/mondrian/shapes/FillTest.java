@@ -4,14 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.monowai.mondrian.canvas.ConsoleCanvas;
-import com.monowai.mondrian.model.Border;
 import com.monowai.mondrian.model.FillData;
 import com.monowai.mondrian.model.RectangleData;
 import org.junit.jupiter.api.Test;
 
 public class FillTest {
   @Test
-  void is_InvalidBucketFillThrowing() {
+  void isInvalidBucketFillThrowing() {
     assertThrows(IllegalArgumentException.class, () -> new Fill(FillData.builder()
         .posX(-1)
         .posY(2)
@@ -23,7 +22,7 @@ public class FillTest {
   }
 
   @Test
-  void is_RectangleBucketFilled() {
+  void isRectangleBucketFilled() {
     ConsoleCanvas canvas = new ConsoleCanvas();
     canvas.draw(RectangleData.builder().posX(8).posY(1).endX(14).endY(4).build());
     FillData fillData = FillData.builder().posX(9).posY(2).fill('.').build();

@@ -14,7 +14,7 @@ docker run -it monowai/mondrian
 *   Lombok - because I know it and am not using this exercise to pickup Kotlin
 *   Checkstyle - Google style
 *   Docker for packaging 
-*   Drawing routines refactored from https://github.com/thangbn/console-drawing
+*   Drawing routines refactored [this project](https://github.com/thangbn/console-drawing)
 
 ### Deviation
 CTRL+D is used to quit instead of Q - convention over configuration

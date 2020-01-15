@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class RectangleTest {
 
   @Test
-  void is_RectangleRenderingInCanvas() {
+  void isRectangleRenderingInCanvas() {
     Border validBorder = Border.builder().build();
     //R 14 1 18 3
     RectangleData rectangleData = RectangleData.builder()

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class LineTest {
 
   @Test
-  void is_InvalidLineThrowing() {
+  void isInvalidLineThrowing() {
     assertThrows(IllegalArgumentException.class, () ->
         new Line(LineData.builder()
             .posX(-1)
@@ -26,7 +26,7 @@ public class LineTest {
   }
 
   @Test
-  void is_LineRenderingInCanvas() {
+  void isLineRenderingInCanvas() {
 
     ConsoleCanvas canvas = new ConsoleCanvas();
     canvas.setPointGlyph('.');
@@ -48,7 +48,7 @@ public class LineTest {
   }
 
   @Test
-  void is_VerticalLineTrimmedToFit() {
+  void isVerticalLineTrimmedToFit() {
 
     ConsoleCanvas canvas = new ConsoleCanvas();
     canvas.setPointGlyph('.');
@@ -71,7 +71,7 @@ public class LineTest {
 
 
   @Test
-  void is_HorizontalLineTrimmedToFit() {
+  void isHorizontalLineTrimmedToFit() {
 
     ConsoleCanvas canvas = new ConsoleCanvas();
     canvas.setPointGlyph('.');

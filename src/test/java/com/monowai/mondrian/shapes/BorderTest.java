@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 public class BorderTest {
 
   @Test
-  void is_CanvasDefaultsValid() {
+  void isCanvasDefaultsValid() {
     assertThat(new ConsoleCanvas()).isNotNull();
   }
 
   @Test
-  void are_HeightConstraintsGuarded() {
+  void areHeightConstraintsGuarded() {
     assertThrows(IllegalArgumentException.class, ()
         -> new ConsoleCanvas(Border.builder().height(-10).build()));
     assertThrows(IllegalArgumentException.class, ()
@@ -24,7 +24,7 @@ public class BorderTest {
   }
 
   @Test
-  void are_WidthConstraintsGuarded() {
+  void areWidthConstraintsGuarded() {
     assertThrows(IllegalArgumentException.class, ()
         -> new ConsoleCanvas(Border.builder().width(-10).build()));
     assertThrows(IllegalArgumentException.class, ()

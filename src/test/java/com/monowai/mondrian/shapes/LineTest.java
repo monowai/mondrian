@@ -23,6 +23,22 @@ public class LineTest {
             .posY(-2)
             .build()));
 
+    // No diagonal lines
+    assertThrows(IllegalArgumentException.class, () ->
+        new Line(LineData.builder()
+            .posX(1)
+            .posY(2)
+            .endX(6)
+            .endY(6)
+            .build()));
+
+    // Outside of canvas
+    assertThrows(IllegalArgumentException.class, () ->
+        new Line(LineData.builder()
+            .posX(40)
+            .posY(40)
+            .build()));
+
   }
 
   @Test

@@ -29,7 +29,9 @@ public class Line implements Shape {
   public Line(ConsoleCanvas canvas, LineData lineData) {
     this.canvas = canvas;
     this.lineData = lineData;
-    isValid();
+    if (!isValid()) {
+      throw new IllegalArgumentException("Unable to draw that line");
+    }
   }
 
   @Override
@@ -47,16 +49,17 @@ public class Line implements Shape {
   }
 
   /**
-   * Throws an exception if dimensions are invalid.
-   *
+   * False if it will not fit.
    */
-  public void isValid() {
-    if (lineData.getPosX() < 1
-        || lineData.getPosX() >= canvas.getBorder().getWidth()
-        || lineData.getPosY() < 1
-        || lineData.getPosY() > canvas.getBorder().getHeight()) {
-      throw new IllegalArgumentException("X,Y coordinates are outside of canvas");
-    }
+  public boolean isValid() {
+    // horizontal/vertical only
+    boolean isNotDiagonal = ((lineData.getPosX() == lineData.getEndX())
+        | (lineData.getEndY() == lineData.getPosY()));
+
+    return isNotDiagonal && lineData.getPosX() >= 1
+        && lineData.getPosX() < canvas.getBorder().getWidth()
+        && lineData.getPosY() >= 1
+        && lineData.getPosY() <= canvas.getBorder().getHeight();
   }
 
 }

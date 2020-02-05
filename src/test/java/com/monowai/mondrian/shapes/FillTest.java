@@ -37,4 +37,36 @@ public class FillTest {
             + "----------------------");
 
   }
+
+  @Test
+  void isFillWithSameElementSafe() {
+    ConsoleCanvas canvas = new ConsoleCanvas();
+    canvas.draw(FillData.builder().fill('z').posX(1).posY(1).build());
+    assertThat(canvas.getElements())
+        .isEqualTo("----------------------\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"----------------------");
+    // Uat reported that filling with the same params twice caused a hang
+    canvas.draw(FillData.builder().fill('z').posX(1).posY(1).build());
+    assertThat(canvas.getElements())
+        .isEqualTo("----------------------\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"|zzzzzzzzzzzzzzzzzzzz|\n"
+            +"----------------------");
+
+    canvas.draw(FillData.builder().fill('.').posX(1).posY(1).build());
+    assertThat(canvas.getElements())
+        .isEqualTo("----------------------\n"
+            +"|....................|\n"
+            +"|....................|\n"
+            +"|....................|\n"
+            +"|....................|\n"
+            +"----------------------");
+
+  }
 }

@@ -40,6 +40,10 @@ public class Fill implements Shape {
     int x = fillData.getPosX();
     char[][] canvasArray = canvas.getCanvasArray();
     char originalChar = canvasArray[y - 1][x - 1];
+    // Anything to do?
+    if (originalChar == fillData.getFill()) {
+      return;
+    }
     Stack<Point> stack = new Stack<>();
     stack.add(new Point(y - 1, x - 1));
     //BFS traversal

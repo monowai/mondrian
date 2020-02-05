@@ -15,5 +15,9 @@ public class InvalidShapeTest {
 
   static class InvalidShape implements ShapeData {
 
+    @Override
+    public Shape create(ConsoleCanvas canvas) {
+      throw new IllegalArgumentException("Not supported");
+    }
   }
 }

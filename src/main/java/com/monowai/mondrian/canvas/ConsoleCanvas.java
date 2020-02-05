@@ -2,7 +2,6 @@ package com.monowai.mondrian.canvas;
 
 import com.monowai.mondrian.model.Border;
 import com.monowai.mondrian.model.ShapeData;
-import com.monowai.mondrian.shapes.CanvasElementFactory;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -14,7 +13,6 @@ import org.jline.reader.impl.LineReaderImpl;
 @Singleton
 public class ConsoleCanvas implements Canvas {
 
-  private CanvasElementFactory canvasElementFactory;
   private PrintWriter out;
   private LineReaderImpl lineReader;
   private Border border;
@@ -51,7 +49,6 @@ public class ConsoleCanvas implements Canvas {
     Arrays.stream(canvasArray).forEach(chars -> Arrays.fill(chars, ' '));
     horizontalEdge = Stream.generate(() -> String.valueOf(border.getHorizontalEdge()))
         .limit(border.getWidth() + 2).collect(Collectors.joining());
-    canvasElementFactory = new CanvasElementFactory(this);
   }
 
   /**
@@ -65,7 +62,7 @@ public class ConsoleCanvas implements Canvas {
     if (element == null) {
       throw new IllegalArgumentException("No element to draw");
     }
-    canvasElementFactory.get(element).draw();
+    element.create(this).draw();
   }
 
   @Override
